@@ -1,4 +1,5 @@
 ﻿using Step_MVC.Models;
+using Step_MVC.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,17 @@ namespace Step_MVC.Controllers
         public ActionResult Index()
         {
             DataStoreContext _myEmployeeContext = new DataStoreContext();
-            var query = from c in _myEmployeeContext.Employee
 
-                        select c;
+            //LINQ to bring in Department Table
+            List<Employee> employee = _myEmployeeContext.Employee.OrderBy(a => a.Name).ToList();
 
-            return View(query.ToList());
+            EmployeeDetailsViewModel employeeDetails = new EmployeeDetailsViewModel
+            {
+                Employees = employee
+            };
+
+            
+            return View(employeeDetails);
         }
     }
 }
