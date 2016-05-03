@@ -1,0 +1,18 @@
+﻿@model List<Step_MVC.Models.Employee>
+<h1>List of Employees</h1>
+@using (Html.BeginForm("Index", "Employee"))
+{
+    <table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+            </tr>
+
+        }
+
+    </table>
+}
+
