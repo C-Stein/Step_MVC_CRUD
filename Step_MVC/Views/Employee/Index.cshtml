@@ -1,13 +1,16 @@
-﻿@model Step_MVC.ViewModels.EmployeeDetailsViewModel
+﻿@model Step_MVC.ViewModels.EmployeeDepartmentDetailsViewModel
 <h1>List of Employees</h1>
-{<h2>Index</h2>
+<h2>Index</h2>
 <table>
-    @foreach (var item in Model.Employees)
-    {
-        <tr>
-            <td>@Html.DisplayFor(ModelItem => item.Name)</td>
+@foreach (var item in Model.Employees)
+{
+    <tr>
+        <td>@Html.DisplayFor(ModelItem => item.Name)</td>
 
-        </tr>
-    }
+        <td>@Html.DisplayFor(ModelItem => item.DepartmentName)</td>
+
+
+    </tr>
+}
 </table>
 

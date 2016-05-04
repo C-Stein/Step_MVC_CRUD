@@ -16,15 +16,22 @@ namespace Step_MVC.Controllers
             DataStoreContext _myEmployeeContext = new DataStoreContext();
 
             //LINQ to bring in Department Table
-            List<Employee> employee = _myEmployeeContext.Employee.OrderBy(a => a.Name).ToList();
+            var employeeDetails = (from emp in _myEmployeeContext.Employee
+                                   join dept in _myEmployeeContext.Department
+                                   on emp.DepartmentId equals dept.DepartmentId
+                                   orderby dept.DepartmentName
+                                   select new EmployeeDetailsViewModel
+                                   {
+                                       Name = emp.Name,
+                                       DepartmentName = dept.DepartmentName
+                                   }).ToList();
 
-            EmployeeDetailsViewModel employeeDetails = new EmployeeDetailsViewModel
+
+            EmployeeDepartmentDetailsViewModel employeeDepartmentDetails = new EmployeeDepartmentDetailsViewModel
             {
-                Employees = employee
+                Employees = employeeDetails
             };
-
-            
-            return View(employeeDetails);
+            return View(employeeDepartmentDetails);
         }
     }
 }

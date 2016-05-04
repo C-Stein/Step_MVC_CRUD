@@ -10,6 +10,8 @@ namespace Step_MVC.ViewModels
     {
         //public int EmployeeId { get; set; }
         public String Name { get; set; }
-        public List<Employee> Employees { get; set; }
+        public String DepartmentName { get; set; }
+
+        //public List<Employee> Employees { get; set; }
     }
 }
