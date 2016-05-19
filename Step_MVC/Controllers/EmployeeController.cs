@@ -23,6 +23,7 @@ namespace Step_MVC.Controllers
                                    select new EmployeeDetailsViewModel
                                    {
                                        Name = emp.Name,
+                                       EmployeeId = emp.EmployeeId,
                                        DepartmentName = dept.DepartmentName
                                    }).ToList();
 
@@ -32,6 +33,72 @@ namespace Step_MVC.Controllers
                 Employees = employeeDetails
             };
             return View(employeeDepartmentDetails);
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(EmployeeDetailsViewModel employeeDetails)
+        {
+            using (DataStoreContext _context = new DataStoreContext())
+            {
+                if(ModelState.IsValid)
+                {
+                    Employee employee = new Employee
+                    {
+                        Name = employeeDetails.Name,
+                        DepartmentId = employeeDetails.DepartmentId
+                    };
+                    _context.Employee.Add(employee);
+                    _context.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+
+                return View(employeeDetails);
+            }
+        }
+        //GET
+        public ActionResult Edit (int employeeId)
+        {
+            using (DataStoreContext _context = new DataStoreContext())
+            {
+                var employeeDetails = (from emp in _context.Employee
+                                       where emp.EmployeeId == employeeId
+                                       select new EmployeeDetailsViewModel
+                                       {
+                                           Name = emp.Name,
+                                           EmployeeId = emp.EmployeeId
+                                       }).ToList();
+
+                EmployeeDepartmentDetailsViewModel employeeModel = new EmployeeDepartmentDetailsViewModel
+                {
+                    Name = employeeDetails.Select(a => a.Name).FirstOrDefault(),
+                };
+                return View(employeeModel);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EmployeeDepartmentDetailsViewModel employeeDetails)
+        {
+            using (DataStoreContext _context = new DataStoreContext())
+            {
+                var employee = _context.Employee.Find(employeeDetails.EmployeeId);
+                var department = _context.Department;
+                if (ModelState.IsValid)
+                {
+                    employee.Name = employeeDetails.Name;
+                    //employee.DepartmentName = employeeDetails.DepartmentName;
+
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return View(employeeDetails);
+            }
         }
     }
 }

@@ -1,0 +1,22 @@
+﻿@model Step_MVC.ViewModels.EmployeeDepartmentDetailsViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.Label("Name")
+    @Html.EditorFor(model => model.Name)
+
+    @Html.Label("DepartmentId")
+    @Html.EditorFor(model => model.DepartmentId)
+
+    <input type="submit" value="Create" />
+}
+
+@Html.ActionLink("Back to homepage", "Index")
+

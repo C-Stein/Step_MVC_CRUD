@@ -1,6 +1,7 @@
 ﻿@model Step_MVC.ViewModels.EmployeeDepartmentDetailsViewModel
 <h1>List of Employees</h1>
-<h2>Index</h2>
+
+@Html.ActionLink("Add new Employee", "Create")
 <table>
 @foreach (var item in Model.Employees)
 {
@@ -9,7 +10,12 @@
 
         <td>@Html.DisplayFor(ModelItem => item.DepartmentName)</td>
 
-
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { employeeId = item.EmployeeId}) |
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { employeeId = item.EmployeeId })
+        </td>
     </tr>
 }
 </table>

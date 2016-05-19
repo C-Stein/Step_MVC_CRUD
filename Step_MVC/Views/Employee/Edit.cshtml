@@ -1,0 +1,19 @@
+﻿@model Step_MVC.ViewModels.EmployeeDepartmentDetailsViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.Label("Name")
+    @Html.EditorFor(model => model.Name)
+
+    <input type="submit" value="Edit" />
+}
+
+@Html.ActionLink("Home", "Index")
