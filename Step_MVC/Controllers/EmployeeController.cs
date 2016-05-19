@@ -100,5 +100,25 @@ namespace Step_MVC.Controllers
                 return View(employeeDetails);
             }
         }
+
+        public ActionResult Delete(int employeeId)
+        {
+            if (employeeId != 0)
+            {
+                using (DataStoreContext _context = new DataStoreContext())
+                {
+                    Employee employee = _context.Employee.Find(employeeId);
+
+                    _context.Employee.Remove(employee);
+                    _context.SaveChanges();
+
+                }
+            }
+            else
+            {
+                ViewBag.Title = "There was a problem";
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
